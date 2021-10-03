@@ -49,10 +49,6 @@ export class SlackLogger implements CustomLogger {
         }
         const streams: UrlFetchStream[] = [];
         const message = `:error: Exception!!!
-[Message]
-${error.toString()}
-
-[StackTrace]
 \`\`\`
 ${error.stack}
 \`\`\``;
