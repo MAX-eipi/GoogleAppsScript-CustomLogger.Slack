@@ -1,13 +1,4 @@
-import { CustomLogger, LogLevel } from "../CustomLogger/CustomLogger";
-import { SlackChatPostMessageStream } from "../UrlFetch.Slack/API/Chat/PostMessage/Stream";
-import { UrlFetchStream } from "../UrlFetch/UrlFetch";
-import { UrlFetchManager } from "../UrlFetch/UrlFetchManager";
-
-type EnumDictionary<T extends string | symbol | number, U> = {
-    [K in T]: U;
-};
-
-export class SlackLogger implements CustomLogger {
+class SlackLogger implements CustomLogger {
     public slackApiToken: string;
     public channelIdTable: EnumDictionary<LogLevel, string[]> = {
         [LogLevel.Debug]: [],
@@ -21,7 +12,7 @@ export class SlackLogger implements CustomLogger {
         if (!channelIds || channelIds.length === 0) {
             return;
         }
-        const streams: UrlFetchStream[] = [];
+        const streams: UrlFetch.Stream[] = [];
         let messageText = message.toString();
         switch (level) {
             case LogLevel.Warning:
@@ -47,7 +38,7 @@ export class SlackLogger implements CustomLogger {
         if (!channelIds || channelIds.length === 0) {
             return;
         }
-        const streams: UrlFetchStream[] = [];
+        const streams: UrlFetch.Stream[] = [];
         const message = `:error: Exception!!!
 \`\`\`
 ${error.stack}
